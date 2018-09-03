@@ -87,7 +87,7 @@ UsageContentCommittment KeyUsage = "content commitment"
 // test/e2e_node/eviction_test.go:51 "Dissapear" should be Disappear in pressureDissapearTimeout
 const (
 	...
-	pressureDissapearTimeout          = 1 * time.Minute
+	pressureDissapearTimeout = 1 * time.Minute
 	...
 )
 
@@ -95,6 +95,8 @@ const (
 volumeBinderConfig: &persistentvolume.FakeVolumeBinderConfig{
 	...
 	FindUnboundSatsified: true,
+	...
+}
 
 // pkg/kubectl/cmd/scale.go:265 "Psuedo" should be Pseudo in JobPsuedoScaler
 scaler := scalejob.JobPsuedoScaler{
