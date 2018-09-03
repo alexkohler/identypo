@@ -71,9 +71,9 @@ Some selected examples from [Kubernetes](https://github.com/kubernetes/kubernete
 $ identypo ./...
 cmd/kubeadm/app/util/apiclient/wait.go:51 "inital" should be initial in initalTimeout
 pkg/apis/certificates/types.go:125 "Committment" should be Commitment in UsageContentCommittment
-controller/nodeipam/ipam/cidrset/cidr_set.go:158 "Begining" should be Beginning in getBeginingAndEndIndices
 test/e2e_node/eviction_test.go:51 "Dissapear" should be Disappear in pressureDissapearTimeout
-printers/internalversion/printers_test.go:1071 "Hunman" should be Human in TestPrintHunmanReadableIngressWithColumnLabel
+pkg/scheduler/scheduler_test.go:705 "Satsified" should be Satisfied in FindUnboundSatsified
+pkg/kubectl/cmd/scale.go:265 "Psuedo" should be Pseudo in JobPsuedoScaler
 ```
 
 ```Go
@@ -84,9 +84,6 @@ WaitForHealthyKubelet(initalTimeout time.Duration, healthzEndpoint string) error
 // pkg/apis/certificates/types.go:125 "Committment" should be Commitment in UsageContentCommittment
 UsageContentCommittment KeyUsage = "content commitment"
 
-// controller/nodeipam/ipam/cidrset/cidr_set.go:158 "Begining" should be Beginning in getBeginingAndEndIndices
-func (s *CidrSet) getBeginingAndEndIndices(cidr *net.IPNet) (begin, end int, err error) {
-
 // test/e2e_node/eviction_test.go:51 "Dissapear" should be Disappear in pressureDissapearTimeout
 const (
 	...
@@ -94,8 +91,15 @@ const (
 	...
 )
 
-// printers/internalversion/printers_test.go:1071 "Hunman" should be Human in TestPrintHunmanReadableIngressWithColumnLabel
-func TestPrintHunmanReadableIngressWithColumnLabels(t *testing.T) {
+// pkg/scheduler/scheduler_test.go:705
+volumeBinderConfig: &persistentvolume.FakeVolumeBinderConfig{
+	...
+	FindUnboundSatsified: true,
+
+// pkg/kubectl/cmd/scale.go:265 "Psuedo" should be Pseudo in JobPsuedoScaler
+scaler := scalejob.JobPsuedoScaler{
+	JobsClient: jobsClient,
+}
 ```
 
 
