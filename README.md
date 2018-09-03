@@ -11,6 +11,9 @@ identypo is a Go static analysis tool to find typos in identifiers (functions, f
 Similar to other Go static analysis tools (such as golint, go vet), identypo can be invoked with one or more filenames, directories, or packages named by its import path. Identypo also supports the `...` wildcard. By default, it will search for typos in every identifier (functions, function calls, variables, constants, type declarations, packages, labels).
 
     identypo [flags] files/directories/packages
+    
+## How is this different from https://github.com/client9/misspell?
+`misspell` operates on raw text and comments. `identypo` operates on [AST identifiers](https://golang.org/pkg/go/ast/#Ident) (i.e. variable names, function names, etc.). Moreover, `identypo` splits each camelcased identifier if necessary (MyIdentifierName turns into 'My Identifier Name') prior to analyzing whether or not it is spelled correctly. Under the hood, `identypo` is using [misspell's spellchecking engine](https://godoc.org/github.com/client9/misspell#Replacer.Replace) to determine whether not a given word is spelled correctly.
 
 ### Flags
 - **-tests** (default true) - Include test files in analysis
