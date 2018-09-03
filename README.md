@@ -14,7 +14,7 @@ Similar to other Go static analysis tools (such as golint, go vet), identypo can
 
 ### Flags
 - **-tests** (default true) - Include test files in analysis
-- **-i** - Comma separated list of corrections to be ignored (for example, to stop corrections on "nto" and "creater", pass `-i="nto,creater"). This is a direct passthrough to the misspell package.
+- **-i** - Comma separated list of corrections to be ignored (for example, to stop corrections on "nto" and "creater", pass `-i="nto,creater"`). This is a direct passthrough to the misspell package.
 - **-functions** - Find typos in function declarations only.
 - **-constants** - Find typos in constants only.
 - **-variables** - Find typos in variables only.
@@ -23,33 +23,6 @@ Similar to other Go static analysis tools (such as golint, go vet), identypo can
 NOTE: by default, identypo will check for typos in every identifier (functions, function calls, variables, constants, type declarations, packages, labels). In this case, no flag needs specified. Due to a lack of frequency, there are currently no flags to find only type declarations, packages, or labels.
 
 ## Example uses in popular Go repos
-
-Some selected examples from [Kubernetes](https://github.com/kubernetes/kubernetes):
-```Bash
-$ identypo ./...
-cmd/kubeadm/app/cmd/phases/kubeconfig_test.go:325 "Authorithy" should be Authority in SetupPkiDirWithCertificateAuthorithy
-cmd/kubeadm/app/util/apiclient/wait.go:51 "inital" should be initial in initalTimeout
-pkg/apis/certificates/types.go:125 "Committment" should be Commitment in UsageContentCommittment
-controller/nodeipam/ipam/cidrset/cidr_set.go:158 "Begining" should be Beginning in getBeginingAndEndIndices
-staging/src/k8s.io/apimachinery/pkg/conversion/converter_test.go:358 "Overriden" should be Overridden in TestConverter_WithConversionOverriden
-```
-
-```Go
-// cmd/kubeadm/app/cmd/phases/kubeconfig_test.go:325 "Authorithy" should be Authority in SetupPkiDirWithCertificateAuthorithy
-pkidir := testutil.SetupPkiDirWithCertificateAuthorithy(t, tmpdir)
-
-// cmd/kubeadm/app/util/apiclient/wait.go:51 "inital" should be initial in initalTimeout
-WaitForHealthyKubelet(initalTimeout time.Duration, healthzEndpoint string) error
-
-// pkg/apis/certificates/types.go:125 "Committment" should be Commitment in UsageContentCommittment
-UsageContentCommittment KeyUsage = "content commitment"
-
-// controller/nodeipam/ipam/cidrset/cidr_set.go:158 "Begining" should be Beginning in getBeginingAndEndIndices
-func (s *CidrSet) getBeginingAndEndIndices(cidr *net.IPNet) (begin, end int, err error) {
-
-// staging/src/k8s.io/apimachinery/pkg/conversion/converter_test.go:358 "Overriden" should be Overridden in TestConverter_WithConversionOverriden
-func TestConverter_WithConversionOverriden(t *testing.T) {
-```
 
 
 Some examples from the [Go standard library](https://github.com/golang/go) (utilizing the `-i` flag to suppress some non-isses):
@@ -92,6 +65,40 @@ type VerifyOptions struct {
 	MaxConstraintComparisions int
 }
 ```
+
+Some selected examples from [Kubernetes](https://github.com/kubernetes/kubernetes):
+```Bash
+$ identypo ./...
+cmd/kubeadm/app/util/apiclient/wait.go:51 "inital" should be initial in initalTimeout
+pkg/apis/certificates/types.go:125 "Committment" should be Commitment in UsageContentCommittment
+controller/nodeipam/ipam/cidrset/cidr_set.go:158 "Begining" should be Beginning in getBeginingAndEndIndices
+test/e2e_node/eviction_test.go:51 "Dissapear" should be Disappear in pressureDissapearTimeout
+printers/internalversion/printers_test.go:1071 "Hunman" should be Human in TestPrintHunmanReadableIngressWithColumnLabel
+```
+
+```Go
+
+// cmd/kubeadm/app/util/apiclient/wait.go:51 "inital" should be initial in initalTimeout
+WaitForHealthyKubelet(initalTimeout time.Duration, healthzEndpoint string) error
+
+// pkg/apis/certificates/types.go:125 "Committment" should be Commitment in UsageContentCommittment
+UsageContentCommittment KeyUsage = "content commitment"
+
+// controller/nodeipam/ipam/cidrset/cidr_set.go:158 "Begining" should be Beginning in getBeginingAndEndIndices
+func (s *CidrSet) getBeginingAndEndIndices(cidr *net.IPNet) (begin, end int, err error) {
+
+// test/e2e_node/eviction_test.go:51 "Dissapear" should be Disappear in pressureDissapearTimeout
+const (
+	...
+	pressureDissapearTimeout          = 1 * time.Minute
+	...
+)
+
+// printers/internalversion/printers_test.go:1071 "Hunman" should be Human in TestPrintHunmanReadableIngressWithColumnLabel
+func TestPrintHunmanReadableIngressWithColumnLabels(t *testing.T) {
+```
+
+
 
 
 ## Packages used
