@@ -1,6 +1,6 @@
 # identypo [![Build Status](https://travis-ci.com/alexkohler/identypo.svg?branch=master)](https://travis-ci.com/alexkohler/identypo)
 
-identypo is a Go static analysis tool to find typos in identifiers (functions, function calls, variables, constants, type declarations, packages, labels). It is built on top of [client9's misspell package](https://github.com/client9/misspell).
+identypo is a Go static analysis tool to find typos in identifiers (functions, function calls, variables, constants, type declarations, packages, labels) including CamelCased functions/variables/etc. It is built on top of [client9's misspell package](https://github.com/client9/misspell).
 
 ## Installation
 
@@ -42,25 +42,11 @@ crypto/x509/verify.go:585 "Comparisions" should be Comparisons in MaxConstraintC
 ```
 
 ```Go
-// cmd/trace/annotations.go:1162-1172 dividened" should be dividend in dividened
+// cmd/trace/annotations.go:1162 dividened" should be dividend in dividened
 "percent": func(dividened, divisor int64) template.HTML {
-	if divisor == 0 {
-		return ""
-	}
-	return template.HTML(fmt.Sprintf("(%.1f%%)", float6(dividened)/float64(divisor)*100))
-},
-"barLen": func(dividened, divisor int64) template.HTML {
-	if divisor == 0 {
-		return "0"
-	}
-	return template.HTML(fmt.Sprintf("%.2f%%", float6(dividened)/float64(divisor)*100))
-},
 
 // crypto/x509/verify.go:208 "Comparisions" should be Comparisons in MaxConstraintComparisions
 type VerifyOptions struct {
-	...
-	Roots         *CertPool // if nil, the system roots are used
-	CurrentTime   time.Time // if zero, the current time is used
 	...
 	MaxConstraintComparisions int
 }
@@ -103,14 +89,6 @@ scaler := scalejob.JobPsuedoScaler{
 	JobsClient: jobsClient,
 }
 ```
-
-
-
-
-## Packages used
-- https://github.com/client9/misspell
-- https://github.com/fatih/camelcase
-
 
 
 ## Contributing
