@@ -1,6 +1,6 @@
 # identypo [![Build Status](https://travis-ci.com/alexkohler/identypo.svg?branch=master)](https://travis-ci.com/alexkohler/identypo)
 
-identypo is a Go static analysis tool to find typos in identifiers (functions, function calls, variables, constants, type declarations, packages, labels) including CamelCased functions/variables/etc. It is built on top of [client9's misspell package](https://github.com/client9/misspell).
+identypo is a Go static analysis tool to find typos in identifiers (functions, function calls, variables, constants, type declarations, packages, labels) including CamelCased functions, variables, etc. It is built on top of [client9's misspell package](https://github.com/client9/misspell).
 
 ## Installation
 
