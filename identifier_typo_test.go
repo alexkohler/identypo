@@ -178,6 +178,38 @@ func Test_processIdentifiers(t *testing.T) {
 				},
 			},
 		},
+		{name: "misspelled function with no receiver which is corrected by hyphenation",
+			args: args{
+				testFiles: []*testFile{
+					{
+						src: `package main
+						func Alltime() {
+						}`,
+						name:     "file.go",
+						wantLogs: []string{"file.go:2 \"Alltime\" should be AllTime in Alltime\n"},
+					},
+				},
+				flags: Flags{
+					Ignores: "",
+				},
+			},
+		},
+		{name: "misspelled (unexported) function with no receiver which is corrected by hyphenation",
+			args: args{
+				testFiles: []*testFile{
+					{
+						src: `package main
+						func alltime() {
+						}`,
+						name:     "file.go",
+						wantLogs: []string{"file.go:2 \"alltime\" should be allTime in alltime\n"},
+					},
+				},
+				flags: Flags{
+					Ignores: "",
+				},
+			},
+		},
 		{name: "single misspelled function matching ignore",
 			args: args{
 				testFiles: []*testFile{

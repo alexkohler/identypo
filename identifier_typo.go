@@ -43,6 +43,31 @@ func CheckForIdentiferTypos(args []string, flags Flags) error {
 	return processIdentifiers(fset, files, flags)
 }
 
+// hyphenToCamelCase converts a hyphenated word into camelCase.
+// This method preserves any capitalisation of the original input text.
+// Example: all-time -> allTime
+func hyphenToCamelCase(s string) string {
+	words := strings.Split(s, "-")
+
+	// if there's only one word then there's nothing to do (i.e. it's not hyphenated)
+	if len(words) <= 1 {
+		return s
+	}
+
+	r := strings.Builder{}
+
+	for i, p := range words {
+		// we don't want to convert the first word to upper case
+		if i > 0 {
+			p = strings.Title(p)
+		}
+
+		r.WriteString(p)
+	}
+
+	return r.String()
+}
+
 func processIdentifiers(fset *token.FileSet, files []*ast.File, flags Flags) error {
 	all := !flags.FunctionsOnly && !flags.ConstantsOnly && !flags.VariablesOnly
 
@@ -70,6 +95,10 @@ func processIdentifiers(fset *token.FileSet, files []*ast.File, flags Flags) err
 	for _, ident := range retVis.identifiers {
 		for _, word := range camelcase.Split(ident.Name) {
 			v, d := retVis.replacer.Replace(word)
+
+			// convert any hyphenated words into camelCase
+			v = hyphenToCamelCase(v)
+
 			if len(d) > 0 {
 				exitStatus = 1
 				file := retVis.f.File(ident.Pos())
